@@ -18,5 +18,7 @@ config.guess
 config.log
 config.status
 config.sub
-/.libs/
-/.deps/
+.libs
+.deps
+src/so_hello
+src/so_hello_gui

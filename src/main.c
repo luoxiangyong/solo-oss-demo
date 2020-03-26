@@ -10,6 +10,9 @@
 int main(int argn, char** argv)
 {
   char* old = NULL;
+
+  printf("solo-oss-demo: console based app\n");
+  
   setlocale(LC_ALL,"");
   old = bindtextdomain(NULL,NULL);
   printf("OLD:%s\n", old);

@@ -1,8 +1,8 @@
-Name:     so-hello
+Name:     solo-oss-demo
 Version:  1.0
 Release:  1%{?dist}
-Summary:  The "Hello World" program from GNU
-Summary(zh_CN):  GNU "Hello World" 程序
+Summary:  The "solo OSS demo" program from practice
+Summary(zh_CN):  开源软件开发练习
 License:  GPLv3+
 #URL:      http://ftp.gnu.org/gnu/hello    
 #Source0:  http://ftp.gnu.org/gnu/hello/%{name}-%{version}.tar.gz
@@ -29,13 +29,13 @@ make %{?_smp_mflags}
 
 %install
 make install DESTDIR=%{buildroot}
-make -p ${RPM_BUILD_ROOT}/usr/share/locale/zh_CN/LC_MESSAGES
-#mkdir -p ${RPM_BUILD_ROOT}/var/tmp/so_hello
-xgettext --keyworkd=_ src/*.c src/*.cpp -o po/so_hello.pot
-pushd ./po
-msgmerge so_hello_zh_CN.po so_hello.pot
-msgfmt so_hello_zh_CN.po -o so_hello.mo
-cp so_hello.mo ${RPM_BUILD_ROOT}/usr/share/locale/zh_CN/LC_MESSAGES
+mkdir -p ${RPM_BUILD_ROOT}/usr/share/locale/zh_CN/LC_MESSAGES
+mkdir -p $RPM_BUILD_DIR/%{name}-%{version}/tmp
+xgettext --keyword=_ src/*.c src/*.cpp -o src/so_hello.pot
+pushd $RPM_BUILD_DIR/%{name}-%{version}
+msgmerge $RPM_BUILD_DIR/%{name}-%{version}/intl/so_hello_zh_CN.po $RPM_BUILD_DIR/%{name}-%{version}/src/so_hello.pot
+msgfmt $RPM_BUILD_DIR/%{name}-%{version}/intl/so_hello_zh_CN.po -o $RPM_BUILD_DIR/%{name}-%{version}/so_hello.mo
+cp $RPM_BUILD_DIR/%{name}-%{version}/so_hello.mo ${RPM_BUILD_ROOT}/usr/share/locale/zh_CN/LC_MESSAGES
 popd 
 
 
@@ -46,7 +46,8 @@ popd
 %{_libdir}/libsohello.so
 %{_libdir}/libsohello.so.0
 %{_libdir}/libsohello.so.0.0.0
-
+/usr/share/locale/zh_CN/LC_MESSAGES
+#/usr/share/doc/so-hello/so_hello_zh_CN.po
 %doc README
 
 #%changelog
