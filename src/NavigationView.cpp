@@ -1,5 +1,48 @@
 #include "NavigationView.h"
+#include <QtGui/QPalette>
 
+NavigationView::NavigationView(QWidget* parent ) : QWidget(parent) 
+{
+	this->setAutoFillBackground(true);
+	QPalette palette(this->palette());
+	palette.setColor(QPalette::Background, Qt::black);
+	this->setPalette(palette);
+
+}
+
+NavigationView::~NavigationView() 
+{
+
+}
+
+void NavigationView::paintEvent(QPaintEvent* event) 
+{
+	QWidget::paintEvent(event);  
+
+	QPainter painter(this);  
+	painter.setRenderHint(QPainter::Antialiasing);  
+	painter.setRenderHint(QPainter::SmoothPixmapTransform);  
+	painter.save();  
+
+	QPen pen(QColor(0,255,0));
+	painter.setPen(pen);
+	int x_interval = 50;
+	int y_interval = 50;
+	int x_margin = 20;
+	int y_margin = 20;
+	for(int i = 1; i < 10; i++){
+		// draw x 
+		painter.drawLine(x_margin, y_margin + i * y_interval, this->width() - x_margin, y_margin + i * y_interval);
+		
+		// draw y
+		painter.drawLine(x_margin + i * x_interval, y_margin, x_margin + i * x_interval, this->height() - y_margin);
+	}
+	
+
+	painter.restore(); 
+}
+
+/*
 void NavigationView::paintEvent(QPaintEvent* event) 
 {
 	QPainter painter(this);  
@@ -76,3 +119,4 @@ void NavigationView::paintEvent(QPaintEvent* event)
 	QWidget::paintEvent(event);  
 
 }
+*/

@@ -10,13 +10,8 @@ class  NavigationView : public QWidget
 {
 	Q_OBJECT
 public:
-	NavigationView(QWidget* parent = NULL) : QWidget(parent) {
-
-	}
-
-	~NavigationView() {
-
-	}
+	NavigationView(QWidget* parent = NULL);
+	~NavigationView();
 
 	void paintEvent(QPaintEvent* event);
 };
