@@ -25,3 +25,5 @@ src/so_hello_gui
 moc-*.cc
 /.vscode/
 src/tmp.pot
+src/solo-hello
+src/solo-navi-viewer
