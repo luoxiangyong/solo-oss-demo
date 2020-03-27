@@ -1,0 +1,15 @@
+Source: solo-oss-demo
+Section: unknown
+Priority: optional
+Maintainer: luoxiangyong <solo_lxy@126.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 1.0
+Homepage: www.luoxiangyong.cn
+Vcs-Git: https://github/luoxiangyong/solo-oss-demo.git
+#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/solo-oss-demo.git
+
+Package: solo-oss-demo
+Architecture: any
+Depends: qtbase5-dev
+Description: 开源软件开发练习
+ 练习GUI开发，AUTOCONF编译，国际化等功能
