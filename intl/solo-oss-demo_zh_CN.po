@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: so_hello 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-25 17:06+0800\n"
+"POT-Creation-Date: 2020-03-27 14:49+0800\n"
 "PO-Revision-Date: 2020-03-25 16:40+0800\n"
 "Last-Translator: luoxiangyong <solo_lxy@126.com>\n"
 "Language-Team: luoxiangyong <solo_lxy@126.com>\n"
@@ -17,7 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/main.c:16
+#: ../src/solo_hello.c:19
 #, c-format
 msgid "hello from  Xiangyong Luo :)\n"
 msgstr "来自罗祥勇的问候！\n"
+
+#: ../src/solo_navi_viewer.cpp:16
+msgid "A Simple Photogrammetric Aerial Navigation Viewer"
+msgstr "简单的航空摄影测量导航器"

@@ -7,6 +7,7 @@ License:  GPLv3+
 #URL:      http://ftp.gnu.org/gnu/hello    
 #Source0:  http://ftp.gnu.org/gnu/hello/%{name}-%{version}.tar.gz
 Source0 : %{name}-%{version}.tar.gz
+
 %description
 The "solo demo" program, done with all bells and whistles of a proper FOSS 
 project, including configuration, build, internationalization, help files, etc.
@@ -31,23 +32,22 @@ make %{?_smp_mflags}
 make install DESTDIR=%{buildroot}
 mkdir -p ${RPM_BUILD_ROOT}/usr/share/locale/zh_CN/LC_MESSAGES
 mkdir -p $RPM_BUILD_DIR/%{name}-%{version}/tmp
-xgettext --keyword=_ src/*.c src/*.cpp -o src/so_hello.pot
+xgettext --keyword=_ src/*.c src/*.cpp -o src/%{name}.pot
 pushd $RPM_BUILD_DIR/%{name}-%{version}
-msgmerge $RPM_BUILD_DIR/%{name}-%{version}/intl/so_hello_zh_CN.po $RPM_BUILD_DIR/%{name}-%{version}/src/so_hello.pot
-msgfmt $RPM_BUILD_DIR/%{name}-%{version}/intl/so_hello_zh_CN.po -o $RPM_BUILD_DIR/%{name}-%{version}/so_hello.mo
-cp $RPM_BUILD_DIR/%{name}-%{version}/so_hello.mo ${RPM_BUILD_ROOT}/usr/share/locale/zh_CN/LC_MESSAGES
+msgmerge -U $RPM_BUILD_DIR/%{name}-%{version}/intl/%{name}_zh_CN.po $RPM_BUILD_DIR/%{name}-%{version}/src/%{name}.pot
+msgfmt $RPM_BUILD_DIR/%{name}-%{version}/intl/%{name}_zh_CN.po -o $RPM_BUILD_DIR/%{name}-%{version}/%{name}.mo
+cp $RPM_BUILD_DIR/%{name}-%{version}/%{name}.mo ${RPM_BUILD_ROOT}/usr/share/locale/zh_CN/LC_MESSAGES
 popd 
 
 
 %files
-%{_bindir}/so_hello
-%{_bindir}/so_hello_gui
-%{_libdir}/libsohello.la
-%{_libdir}/libsohello.so
-%{_libdir}/libsohello.so.0
-%{_libdir}/libsohello.so.0.0.0
+%{_bindir}/solo-hello
+%{_bindir}/solo-navi-viewer
+%{_libdir}/libsolo-basic.la
+%{_libdir}/libsolo-basic.so
+%{_libdir}/libsolo-basic.so.0
+%{_libdir}/libsolo-basic.so.0.0.0
 /usr/share/locale/zh_CN/LC_MESSAGES
-#/usr/share/doc/so-hello/so_hello_zh_CN.po
 %doc README
 
 #%changelog

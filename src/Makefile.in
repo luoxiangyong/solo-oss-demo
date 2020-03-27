@@ -89,7 +89,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = so_hello$(EXEEXT) so_hello_gui$(EXEEXT)
+bin_PROGRAMS = solo-hello$(EXEEXT) solo-navi-viewer$(EXEEXT)
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -130,25 +130,30 @@ am__uninstall_files_from_dir = { \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libsohello_la_LIBADD =
-am_libsohello_la_OBJECTS = hello.lo
-libsohello_la_OBJECTS = $(am_libsohello_la_OBJECTS)
+libsolo_basic_la_LIBADD =
+am_libsolo_basic_la_OBJECTS = solo_basic.lo
+libsolo_basic_la_OBJECTS = $(am_libsolo_basic_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libsohello_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(libsohello_la_LDFLAGS) $(LDFLAGS) -o $@
-am_so_hello_OBJECTS = main.$(OBJEXT)
-so_hello_OBJECTS = $(am_so_hello_OBJECTS)
-so_hello_DEPENDENCIES = libsohello.la
-am_so_hello_gui_OBJECTS = so_hello_gui-so_gui.$(OBJEXT)
-so_hello_gui_OBJECTS = $(am_so_hello_gui_OBJECTS)
-so_hello_gui_LDADD = $(LDADD)
-so_hello_gui_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(so_hello_gui_LDFLAGS) $(LDFLAGS) -o $@
+libsolo_basic_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(AM_CFLAGS) $(CFLAGS) $(libsolo_basic_la_LDFLAGS) $(LDFLAGS) \
+	-o $@
+am_solo_hello_OBJECTS = solo_hello.$(OBJEXT)
+solo_hello_OBJECTS = $(am_solo_hello_OBJECTS)
+solo_hello_DEPENDENCIES = libsolo-basic.la
+am_solo_navi_viewer_OBJECTS =  \
+	solo_navi_viewer-solo_navi_viewer.$(OBJEXT) \
+	solo_navi_viewer-NavigationView.$(OBJEXT) \
+	solo_navi_viewer-moc-NavigationView.$(OBJEXT)
+solo_navi_viewer_OBJECTS = $(am_solo_navi_viewer_OBJECTS)
+solo_navi_viewer_LDADD = $(LDADD)
+solo_navi_viewer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) \
+	$(solo_navi_viewer_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -164,8 +169,11 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/hello.Plo ./$(DEPDIR)/main.Po \
-	./$(DEPDIR)/so_hello_gui-so_gui.Po
+am__depfiles_remade = ./$(DEPDIR)/solo_basic.Plo \
+	./$(DEPDIR)/solo_hello.Po \
+	./$(DEPDIR)/solo_navi_viewer-NavigationView.Po \
+	./$(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po \
+	./$(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -203,10 +211,10 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(libsohello_la_SOURCES) $(so_hello_SOURCES) \
-	$(so_hello_gui_SOURCES)
-DIST_SOURCES = $(libsohello_la_SOURCES) $(so_hello_SOURCES) \
-	$(so_hello_gui_SOURCES)
+SOURCES = $(libsolo_basic_la_SOURCES) $(solo_hello_SOURCES) \
+	$(solo_navi_viewer_SOURCES)
+DIST_SOURCES = $(libsolo_basic_la_SOURCES) $(solo_hello_SOURCES) \
+	$(solo_navi_viewer_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -280,6 +288,10 @@ LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+MOC = @MOC@
+MY_QT5_CPPFLAGS = @MY_QT5_CPPFLAGS@
+MY_QT5_LDFLAGS = @MY_QT5_LDFLAGS@
+MY_QT5_LIBS = @MY_QT5_LIBS@
 NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
@@ -294,11 +306,18 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
+QT5_CFLAGS = @QT5_CFLAGS@
+QT5_LIBS = @QT5_LIBS@
 RANLIB = @RANLIB@
+RCC = @RCC@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+UIC = @UIC@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -355,22 +374,18 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign 
 AM_CPPFLAGS = -I../include
-so_hello_SOURCES = main.c
-so_hello_LDADD = libsohello.la
-so_hello_gui_SOURCES = so_gui.cpp
-#so_hello_gui_LDADD = libQtCore.so libQtWidgets
-so_hello_gui_CPPFLAGS = -I/usr/include/qt5 -fPIC
-so_hello_gui_LDFLAGS = -lQt5Core -lQt5Widgets
-#sohello_basiclibdir=$(libdir)
-#sohello_basiclib_PROGRAMS = sohello_basic.so
-#sohello_basic_so_SOURCES = hello.c
-lib_LTLIBRARIES = libsohello.la
-libsohello_la_SOURCES = hello.c ../include/so_hello.h
-libsohello_la_LDFLAGS = -shared -fPIC
+solo_hello_SOURCES = solo_hello.c
+solo_hello_LDADD = libsolo-basic.la
+solo_navi_viewer_SOURCES = solo_navi_viewer.cpp NavigationView.cpp NavigationView.h moc-NavigationView.cc
+solo_navi_viewer_CXXFLAGS = @MY_QT5_CPPFLAGS@ -fPIC
+solo_navi_viewer_LDFLAGS = @MY_QT5_LIBS@
+lib_LTLIBRARIES = libsolo-basic.la
+libsolo_basic_la_SOURCES = solo_basic.c ../include/solo_basic.h
+libsolo_basic_la_LDFLAGS = -shared -fPIC
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .cpp .lo .o .obj
+.SUFFIXES: .c .cc .cpp .lo .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -485,16 +500,16 @@ clean-libLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libsohello.la: $(libsohello_la_OBJECTS) $(libsohello_la_DEPENDENCIES) $(EXTRA_libsohello_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libsohello_la_LINK) -rpath $(libdir) $(libsohello_la_OBJECTS) $(libsohello_la_LIBADD) $(LIBS)
+libsolo-basic.la: $(libsolo_basic_la_OBJECTS) $(libsolo_basic_la_DEPENDENCIES) $(EXTRA_libsolo_basic_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(libsolo_basic_la_LINK) -rpath $(libdir) $(libsolo_basic_la_OBJECTS) $(libsolo_basic_la_LIBADD) $(LIBS)
 
-so_hello$(EXEEXT): $(so_hello_OBJECTS) $(so_hello_DEPENDENCIES) $(EXTRA_so_hello_DEPENDENCIES) 
-	@rm -f so_hello$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(so_hello_OBJECTS) $(so_hello_LDADD) $(LIBS)
+solo-hello$(EXEEXT): $(solo_hello_OBJECTS) $(solo_hello_DEPENDENCIES) $(EXTRA_solo_hello_DEPENDENCIES) 
+	@rm -f solo-hello$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(solo_hello_OBJECTS) $(solo_hello_LDADD) $(LIBS)
 
-so_hello_gui$(EXEEXT): $(so_hello_gui_OBJECTS) $(so_hello_gui_DEPENDENCIES) $(EXTRA_so_hello_gui_DEPENDENCIES) 
-	@rm -f so_hello_gui$(EXEEXT)
-	$(AM_V_CXXLD)$(so_hello_gui_LINK) $(so_hello_gui_OBJECTS) $(so_hello_gui_LDADD) $(LIBS)
+solo-navi-viewer$(EXEEXT): $(solo_navi_viewer_OBJECTS) $(solo_navi_viewer_DEPENDENCIES) $(EXTRA_solo_navi_viewer_DEPENDENCIES) 
+	@rm -f solo-navi-viewer$(EXEEXT)
+	$(AM_V_CXXLD)$(solo_navi_viewer_LINK) $(solo_navi_viewer_OBJECTS) $(solo_navi_viewer_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -502,9 +517,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hello.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/so_hello_gui-so_gui.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_basic.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_hello.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-NavigationView.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -533,6 +550,69 @@ am--depfiles: $(am__depfiles_remade)
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
+.cc.o:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
+
+.cc.obj:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.cc.lo:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
+
+solo_navi_viewer-solo_navi_viewer.o: solo_navi_viewer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-solo_navi_viewer.o -MD -MP -MF $(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Tpo -c -o solo_navi_viewer-solo_navi_viewer.o `test -f 'solo_navi_viewer.cpp' || echo '$(srcdir)/'`solo_navi_viewer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Tpo $(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='solo_navi_viewer.cpp' object='solo_navi_viewer-solo_navi_viewer.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-solo_navi_viewer.o `test -f 'solo_navi_viewer.cpp' || echo '$(srcdir)/'`solo_navi_viewer.cpp
+
+solo_navi_viewer-solo_navi_viewer.obj: solo_navi_viewer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-solo_navi_viewer.obj -MD -MP -MF $(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Tpo -c -o solo_navi_viewer-solo_navi_viewer.obj `if test -f 'solo_navi_viewer.cpp'; then $(CYGPATH_W) 'solo_navi_viewer.cpp'; else $(CYGPATH_W) '$(srcdir)/solo_navi_viewer.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Tpo $(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='solo_navi_viewer.cpp' object='solo_navi_viewer-solo_navi_viewer.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-solo_navi_viewer.obj `if test -f 'solo_navi_viewer.cpp'; then $(CYGPATH_W) 'solo_navi_viewer.cpp'; else $(CYGPATH_W) '$(srcdir)/solo_navi_viewer.cpp'; fi`
+
+solo_navi_viewer-NavigationView.o: NavigationView.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-NavigationView.o -MD -MP -MF $(DEPDIR)/solo_navi_viewer-NavigationView.Tpo -c -o solo_navi_viewer-NavigationView.o `test -f 'NavigationView.cpp' || echo '$(srcdir)/'`NavigationView.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-NavigationView.Tpo $(DEPDIR)/solo_navi_viewer-NavigationView.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='NavigationView.cpp' object='solo_navi_viewer-NavigationView.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-NavigationView.o `test -f 'NavigationView.cpp' || echo '$(srcdir)/'`NavigationView.cpp
+
+solo_navi_viewer-NavigationView.obj: NavigationView.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-NavigationView.obj -MD -MP -MF $(DEPDIR)/solo_navi_viewer-NavigationView.Tpo -c -o solo_navi_viewer-NavigationView.obj `if test -f 'NavigationView.cpp'; then $(CYGPATH_W) 'NavigationView.cpp'; else $(CYGPATH_W) '$(srcdir)/NavigationView.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-NavigationView.Tpo $(DEPDIR)/solo_navi_viewer-NavigationView.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='NavigationView.cpp' object='solo_navi_viewer-NavigationView.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-NavigationView.obj `if test -f 'NavigationView.cpp'; then $(CYGPATH_W) 'NavigationView.cpp'; else $(CYGPATH_W) '$(srcdir)/NavigationView.cpp'; fi`
+
+solo_navi_viewer-moc-NavigationView.o: moc-NavigationView.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-moc-NavigationView.o -MD -MP -MF $(DEPDIR)/solo_navi_viewer-moc-NavigationView.Tpo -c -o solo_navi_viewer-moc-NavigationView.o `test -f 'moc-NavigationView.cc' || echo '$(srcdir)/'`moc-NavigationView.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-moc-NavigationView.Tpo $(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='moc-NavigationView.cc' object='solo_navi_viewer-moc-NavigationView.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-moc-NavigationView.o `test -f 'moc-NavigationView.cc' || echo '$(srcdir)/'`moc-NavigationView.cc
+
+solo_navi_viewer-moc-NavigationView.obj: moc-NavigationView.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-moc-NavigationView.obj -MD -MP -MF $(DEPDIR)/solo_navi_viewer-moc-NavigationView.Tpo -c -o solo_navi_viewer-moc-NavigationView.obj `if test -f 'moc-NavigationView.cc'; then $(CYGPATH_W) 'moc-NavigationView.cc'; else $(CYGPATH_W) '$(srcdir)/moc-NavigationView.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-moc-NavigationView.Tpo $(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='moc-NavigationView.cc' object='solo_navi_viewer-moc-NavigationView.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-moc-NavigationView.obj `if test -f 'moc-NavigationView.cc'; then $(CYGPATH_W) 'moc-NavigationView.cc'; else $(CYGPATH_W) '$(srcdir)/moc-NavigationView.cc'; fi`
+
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
@@ -553,20 +633,6 @@ am--depfiles: $(am__depfiles_remade)
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
-
-so_hello_gui-so_gui.o: so_gui.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(so_hello_gui_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT so_hello_gui-so_gui.o -MD -MP -MF $(DEPDIR)/so_hello_gui-so_gui.Tpo -c -o so_hello_gui-so_gui.o `test -f 'so_gui.cpp' || echo '$(srcdir)/'`so_gui.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/so_hello_gui-so_gui.Tpo $(DEPDIR)/so_hello_gui-so_gui.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='so_gui.cpp' object='so_hello_gui-so_gui.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(so_hello_gui_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o so_hello_gui-so_gui.o `test -f 'so_gui.cpp' || echo '$(srcdir)/'`so_gui.cpp
-
-so_hello_gui-so_gui.obj: so_gui.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(so_hello_gui_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT so_hello_gui-so_gui.obj -MD -MP -MF $(DEPDIR)/so_hello_gui-so_gui.Tpo -c -o so_hello_gui-so_gui.obj `if test -f 'so_gui.cpp'; then $(CYGPATH_W) 'so_gui.cpp'; else $(CYGPATH_W) '$(srcdir)/so_gui.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/so_hello_gui-so_gui.Tpo $(DEPDIR)/so_hello_gui-so_gui.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='so_gui.cpp' object='so_hello_gui-so_gui.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(so_hello_gui_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o so_hello_gui-so_gui.obj `if test -f 'so_gui.cpp'; then $(CYGPATH_W) 'so_gui.cpp'; else $(CYGPATH_W) '$(srcdir)/so_gui.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -704,9 +770,11 @@ clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
 	clean-libtool mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/hello.Plo
-	-rm -f ./$(DEPDIR)/main.Po
-	-rm -f ./$(DEPDIR)/so_hello_gui-so_gui.Po
+		-rm -f ./$(DEPDIR)/solo_basic.Plo
+	-rm -f ./$(DEPDIR)/solo_hello.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-NavigationView.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -752,9 +820,11 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/hello.Plo
-	-rm -f ./$(DEPDIR)/main.Po
-	-rm -f ./$(DEPDIR)/so_hello_gui-so_gui.Po
+		-rm -f ./$(DEPDIR)/solo_basic.Plo
+	-rm -f ./$(DEPDIR)/solo_hello.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-NavigationView.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -793,6 +863,16 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES
 
 .PRECIOUS: Makefile
 
+
+# qt project stuff
+moc-%.cc: %.h
+	@MOC@ -o$@ $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(MOC_CPPFLAGS) $<
+
+ui-%.h: %.ui
+	@UIC@ -o $@ $<
+
+qrc-%.cc: %.qrc
+	@RCC@ -o $@ $<
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

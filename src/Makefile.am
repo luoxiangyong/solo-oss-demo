@@ -1,20 +1,28 @@
 AUTOMAKE_OPTIONS=foreign 
 AM_CPPFLAGS = -I../include
 
-bin_PROGRAMS = so_hello so_hello_gui
+bin_PROGRAMS = solo-hello solo-navi-viewer
 
-so_hello_SOURCES = main.c
-so_hello_LDADD = libsohello.la
+solo_hello_SOURCES = solo_hello.c
+solo_hello_LDADD = libsolo-basic.la
 
 
-so_hello_gui_SOURCES = so_gui.cpp
-#so_hello_gui_LDADD = libQtCore.so libQtWidgets
-so_hello_gui_CPPFLAGS = -I/usr/include/qt5 -fPIC
-so_hello_gui_LDFLAGS = -lQt5Core -lQt5Widgets
-#sohello_basiclibdir=$(libdir)
-#sohello_basiclib_PROGRAMS = sohello_basic.so
-#sohello_basic_so_SOURCES = hello.c
+solo_navi_viewer_SOURCES 	= solo_navi_viewer.cpp NavigationView.cpp NavigationView.h moc-NavigationView.cc
+solo_navi_viewer_CXXFLAGS 	= @MY_QT5_CPPFLAGS@ -fPIC
+solo_navi_viewer_LDFLAGS 	= @MY_QT5_LIBS@
 
-lib_LTLIBRARIES = libsohello.la
-libsohello_la_SOURCES = hello.c ../include/so_hello.h
-libsohello_la_LDFLAGS=-shared -fPIC
+
+lib_LTLIBRARIES 			= libsolo-basic.la
+libsolo_basic_la_SOURCES 	= solo_basic.c ../include/solo_basic.h
+libsolo_basic_la_LDFLAGS 	= -shared -fPIC
+
+
+# qt project stuff
+moc-%.cc: %.h
+	@MOC@ -o$@ $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(MOC_CPPFLAGS) $<
+
+ui-%.h: %.ui
+	@UIC@ -o $@ $<
+
+qrc-%.cc: %.qrc
+	@RCC@ -o $@ $<

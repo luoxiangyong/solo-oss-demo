@@ -22,3 +22,6 @@ config.sub
 .deps
 src/so_hello
 src/so_hello_gui
+moc-*.cc
+/.vscode/
+src/tmp.pot
