@@ -20,9 +20,12 @@ int main(int argn, char** argv)
 	mainWindow.setWindowTitle(_("A Simple Photogrammetric Aerial Navigation Viewer"));
 	mainWindow.resize(800,600);
 
-	QVBoxLayout* mainLayout = new QVBoxLayout();
+	//mainWindow.setContentsMargins(0,0,0,0);
 
+	QVBoxLayout* mainLayout = new QVBoxLayout();
+	mainLayout->setContentsMargins(0,0,0,0);
 	QWidget* mainPanel = new QWidget();
+	//mainPanel->setContentsMargins(0,0,0,0);
 	mainPanel->setLayout(mainLayout);
 	mainWindow.setCentralWidget(mainPanel);
 	
