@@ -14,10 +14,11 @@ Makefile
 *.lo
 *.la
 autom4te.cache/
-config.guess
+#config.guess
+#config.log
+#config.status
+#config.sub
 config.log
-config.status
-config.sub
 .libs
 .deps
 src/so_hello

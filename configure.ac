@@ -1,6 +1,8 @@
 AC_INIT([solo-oss-demo], [1.0], [solo_lxy@126.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
+#AC_CANONICAL_SYSTEM
+
 AM_PROG_AR
 AC_PROG_CC
 #AC_PROG_RANLIB
