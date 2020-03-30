@@ -1,3 +1,9 @@
+# 基本介绍
+
+本程序使用了gettext、libintl、QT5等库
+
+
+
 # 环境准备
 
 ## Ubuntu or Debian
