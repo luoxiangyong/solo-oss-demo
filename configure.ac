@@ -1,7 +1,6 @@
 AC_INIT([solo-oss-demo], [1.0], [solo_lxy@126.com])
+AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-
-#AC_CANONICAL_SYSTEM
 
 AM_PROG_AR
 AC_PROG_CC
@@ -9,6 +8,16 @@ AC_PROG_CC
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 AC_PROG_CXX
+
+case $host in 
+	*-mingw32)
+	MINGW32_EXTRA_LIBS=-lintl
+	;;
+	*)
+	MINGW32_EXTRA_LIBS=
+	;;
+esac
+AC_SUBST([MINGW32_EXTRA_LIBS])
 
 PKG_CHECK_MODULES(QT5, [Qt5Core Qt5Gui], [
 	AC_PATH_PROGS(MOC, [moc-qt5 moc], moc,`eval $PKG_CONFIG --variable=exec_prefix Qt5Core`/bin)
@@ -45,6 +54,8 @@ AC_MSG_RESULT([QT5_LIBS: $QT5_LIBS])
 AC_MSG_RESULT([MOC: $MOC])
 AC_MSG_RESULT([RCC: $RCC])
 AC_MSG_RESULT([UIC: $UIC])
+AC_MSG_RESULT([host: $host])
+AC_MSG_RESULT([MINGW32_EXTRA_LIBS: $MINGW32_EXTRA_LIBS])
 
 AC_MSG_RESULT([========================================================================])
 

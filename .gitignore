@@ -17,10 +17,10 @@ Makefile
 *.la
 stamp-h1
 autom4te.cache/
-config.guess
+#config.guess
 config.log
 config.status
-config.sub
+#config.sub
 .libs
 .deps
 src/so_hello
