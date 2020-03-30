@@ -30,3 +30,4 @@ moc-*.cc
 src/tmp.pot
 src/solo-hello
 src/solo-navi-viewer
+.DS_Store

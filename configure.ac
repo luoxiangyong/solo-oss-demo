@@ -10,14 +10,20 @@ AC_PROG_LIBTOOL
 AC_PROG_CXX
 
 case $host in 
-	*-mingw32)
-	MINGW32_EXTRA_LIBS=-lintl
+	*-mingw32*)
+	INTL_EXTRA_LIBS=-lintl
+	break
+	;;
+	*-darwin*)
+	INTL_EXTRA_LIBS=-lintl -L/opt/local/lib/
+	break
 	;;
 	*)
-	MINGW32_EXTRA_LIBS=
+	INTL_EXTRA_LIBS=
+	break
 	;;
 esac
-AC_SUBST([MINGW32_EXTRA_LIBS])
+AC_SUBST([INTL_EXTRA_LIBS])
 
 PKG_CHECK_MODULES(QT5, [Qt5Core Qt5Gui], [
 	AC_PATH_PROGS(MOC, [moc-qt5 moc], moc,`eval $PKG_CONFIG --variable=exec_prefix Qt5Core`/bin)
@@ -30,7 +36,7 @@ PKG_CHECK_MODULES(QT5, [Qt5Core Qt5Gui], [
 # Retrieve Qt compilation and linker flags
 MY_QT5_CPPFLAGS="`$PKG_CONFIG --cflags-only-I Qt5Core Qt5Gui Qt5Widgets` $CPPFLAGS"
 MY_QT5_LDFLAGS="`$PKG_CONFIG --libs-only-L Qt5Core Qt5Gui Qt5Widgets` $LDFLAGS"
-MY_QT5_LIBS="`$PKG_CONFIG --libs-only-l Qt5Core Qt5Gui Qt5Widgets` $LIBS"
+MY_QT5_LIBS="`$PKG_CONFIG --libs Qt5Core Qt5Gui Qt5Widgets` $LIBS"
 
 AC_SUBST(MY_QT5_CPPFLAGS, [$MY_QT5_CPPFLAGS])
 AC_SUBST(MY_QT5_LDFLAGS, [$MY_QT5_LDFLAGS])
@@ -46,6 +52,7 @@ AC_OUTPUT
 
 AC_MSG_RESULT([])
 AC_MSG_RESULT([========================================================================])
+AC_MSG_RESULT([PKG_CONFIG: $PKG_CONFIG])
 AC_MSG_RESULT([MY_QT5_CPPFLAGS: $MY_QT5_CPPFLAGS])
 AC_MSG_RESULT([MY_QT5_LDFLAGS: $MY_QT5_LDFLAGS])
 AC_MSG_RESULT([MY_QT5_LIBS: $MY_QT5_LIBS])
@@ -55,7 +62,7 @@ AC_MSG_RESULT([MOC: $MOC])
 AC_MSG_RESULT([RCC: $RCC])
 AC_MSG_RESULT([UIC: $UIC])
 AC_MSG_RESULT([host: $host])
-AC_MSG_RESULT([MINGW32_EXTRA_LIBS: $MINGW32_EXTRA_LIBS])
+AC_MSG_RESULT([INTL_EXTRA_LIBS: $INTL_EXTRA_LIBS])
 
 AC_MSG_RESULT([========================================================================])
 
