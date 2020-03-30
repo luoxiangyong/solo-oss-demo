@@ -139,3 +139,22 @@ sudo port install autoconf automake libtool gdb pkgconfig
 
 ## ArchLinux
 
+Arch Linux；构建 ID：rolling
+
+```bash
+sudo pacman -S qt5-base pkgconfig autoconf automake libtool gdb pkgconfig		
+```
+
+
+
+# 常见问题集锦
+
+1. 如果出现libtool版本问题，执行
+
+   ```
+    autoreconf -ivf 
+   ```
+
+   强制生成相关文件即可
+
+2. 本程序使用的intl在linux发布版上不需要直接链接，但在Mingw、Mac OS X上需要与libintl库链接
