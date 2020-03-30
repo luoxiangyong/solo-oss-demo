@@ -1,4 +1,6 @@
 *.o
+*.obj
+*.exe
 *~
 *.so
 *.la
@@ -13,12 +15,12 @@ TAGS
 Makefile
 *.lo
 *.la
+stamp-h1
 autom4te.cache/
-#config.guess
-#config.log
-#config.status
-#config.sub
+config.guess
 config.log
+config.status
+config.sub
 .libs
 .deps
 src/so_hello
@@ -26,7 +28,5 @@ src/so_hello_gui
 moc-*.cc
 /.vscode/
 src/tmp.pot
-
 src/solo-hello
-
 src/solo-navi-viewer

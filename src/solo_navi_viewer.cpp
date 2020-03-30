@@ -6,6 +6,7 @@
 
 #include "solo_basic.h"
 #include "NavigationView.h"
+#include <libintl.h>
 
 
 int main(int argn, char** argv)
