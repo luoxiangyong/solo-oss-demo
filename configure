@@ -17290,7 +17290,7 @@ MY_QT5_LIBS=$MY_QT5_LIBS
 
 ac_config_headers="$ac_config_headers config.h"
 
-ac_config_files="$ac_config_files  Makefile src/Makefile"
+ac_config_files="$ac_config_files Makefile src/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -18412,9 +18412,8 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
-    "") CONFIG_FILES="$CONFIG_FILES " ;;
-    "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
