@@ -15,8 +15,15 @@
 #define gettext_noop(String) String
 #define N_(String) gettext_noop(String)
 
+#if __cplusplus
+extern "C" {
+#endif
 
 SOLO_API const char* solo_get_hello();
 SOLO_API int solo_test_fun();
+
+#if __cplusplus
+}
+#endif
 
 #endif // SOLO_BASIC_H
