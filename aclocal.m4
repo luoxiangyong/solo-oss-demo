@@ -1706,7 +1706,7 @@ AC_CACHE_VAL([lt_cv_sys_max_cmd_len], [dnl
     lt_cv_sys_max_cmd_len=-1;
     ;;
 
-  cygwin* | msys* | mingw* | cegcc*)
+  cygwin* | mingw* | cegcc*)
     # On Win9x/ME, this test blows up -- it succeeds, but takes
     # about 5 minutes as the teststring grows exponentially.
     # Worse, since 9x/ME are not pre-emptively multitasking,
@@ -1954,7 +1954,7 @@ else
     lt_cv_dlopen_libs=
     ;;
 
-  cygwin* | msys*)
+  cygwin*)
     lt_cv_dlopen=dlopen
     lt_cv_dlopen_libs=
     ;;
@@ -2535,7 +2535,7 @@ bsdi[[45]]*)
   # libtool to hard-code these into programs
   ;;
 
-cygwin* | msys* | mingw* | pw32* | cegcc*)
+cygwin* | mingw* | pw32* | cegcc*)
   version_type=windows
   shrext_cmds=.dll
   need_version=no
@@ -2564,12 +2564,6 @@ cygwin* | msys* | mingw* | pw32* | cegcc*)
     cygwin*)
       # Cygwin DLLs use 'cyg' prefix rather than 'lib'
       soname_spec='`echo $libname | sed -e 's/^lib/cyg/'``echo $release | $SED -e 's/[[.]]/-/g'`$versuffix$shared_ext'
-m4_if([$1], [],[
-      sys_lib_search_path_spec="$sys_lib_search_path_spec /usr/lib/w32api"])
-      ;;
-    msys*)
-      # MSYS DLLs use 'msys-' prefix rather than 'lib'
-      soname_spec='`echo $libname | sed -e 's/^lib/msys-/'``echo $release | $SED -e 's/[[.]]/-/g'`$versuffix$shared_ext'
 m4_if([$1], [],[
       sys_lib_search_path_spec="$sys_lib_search_path_spec /usr/lib/w32api"])
       ;;
@@ -2607,7 +2601,7 @@ m4_if([$1], [],[
       # Convert to MSYS style.
       sys_lib_search_path_spec=`$ECHO "$sys_lib_search_path_spec" | sed -e 's|\\\\|/|g' -e 's| \\([[a-zA-Z]]\\):| /\\1|g' -e 's|^ ||'`
       ;;
-    cygwin* | msys*)
+    cygwin*)
       # Convert to unix form, then to dos form, then back to unix form
       # but this time dos style (no spaces!) so that the unix form looks
       # like /cygdrive/c/PROGRA~1:/cygdr...
@@ -2887,6 +2881,9 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu*)
   # before this can be enabled.
   hardcode_into_libs=yes
 
+  # Add ABI-specific directories to the system library path.
+  sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib"
+
   # Ideally, we could use ldconfig to report *all* directores which are
   # searched for libraries, however this is still not possible.  Aside from not
   # being certain /sbin/ldconfig is available, command
@@ -2895,7 +2892,7 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu*)
   # appending ld.so.conf contents (and includes) to the search path.
   if test -f /etc/ld.so.conf; then
     lt_ld_extra=`awk '/^include / { system(sprintf("cd /etc; cat %s 2>/dev/null", \[$]2)); skip = 1; } { if (!skip) print \[$]0; skip = 0; }' < /etc/ld.so.conf | $SED -e 's/#.*//;/^[	 ]*hwcap[	 ]/d;s/[:,	]/ /g;s/=[^=]*$//;s/=[^= ]* / /g;s/"//g;/^$/d' | tr '\n' ' '`
-    sys_lib_dlsearch_path_spec="/lib /usr/lib $lt_ld_extra"
+    sys_lib_dlsearch_path_spec="$sys_lib_dlsearch_path_spec $lt_ld_extra"
   fi
 
   # We used to test for /lib/ld.so.1 and disable shared libraries on
@@ -3385,7 +3382,7 @@ case $reload_flag in
 esac
 reload_cmds='$LD$reload_flag -o $output$reload_objs'
 case $host_os in
-  cygwin* | msys* | mingw* | pw32* | cegcc*)
+  cygwin* | mingw* | pw32* | cegcc*)
     if test yes != "$GCC"; then
       reload_cmds=false
     fi
@@ -3478,7 +3475,7 @@ bsdi[[45]]*)
   lt_cv_file_magic_test_file=/shlib/libc.so
   ;;
 
-cygwin* | msys*)
+cygwin*)
   # func_win32_libid is a shell function defined in ltmain.sh
   lt_cv_deplibs_check_method='file_magic ^x86 archive import|^x86 DLL'
   lt_cv_file_magic_cmd='func_win32_libid'
@@ -3791,7 +3788,7 @@ lt_cv_sharedlib_from_linklib_cmd,
 [lt_cv_sharedlib_from_linklib_cmd='unknown'
 
 case $host_os in
-cygwin* | msys* | mingw* | pw32* | cegcc*)
+cygwin* | mingw* | pw32* | cegcc*)
   # two different shell functions defined in ltmain.sh;
   # decide which one to use based on capabilities of $DLLTOOL
   case `$DLLTOOL --help 2>&1` in
@@ -3861,7 +3858,7 @@ AC_DEFUN([LT_LIB_M],
 [AC_REQUIRE([AC_CANONICAL_HOST])dnl
 LIBM=
 case $host in
-*-*-beos* | *-*-cegcc* | *-*-cygwin* | *-*-msys* | *-*-haiku* | *-*-pw32* | *-*-darwin*)
+*-*-beos* | *-*-cegcc* | *-*-cygwin* | *-*-haiku* | *-*-pw32* | *-*-darwin*)
   # These system don't have libm, or don't need it
   ;;
 *-ncr-sysv4.3*)
@@ -3936,7 +3933,7 @@ case $host_os in
 aix*)
   symcode='[[BCDT]]'
   ;;
-cygwin* | msys* | mingw* | pw32* | cegcc*)
+cygwin* | mingw* | pw32* | cegcc*)
   symcode='[[ABCDGISTW]]'
   ;;
 hpux*)
@@ -4242,7 +4239,7 @@ m4_if([$1], [CXX], [
     beos* | irix5* | irix6* | nonstopux* | osf3* | osf4* | osf5*)
       # PIC is the default for these OSes.
       ;;
-    mingw* | cygwin* | msys* | os2* | pw32* | cegcc*)
+    mingw* | cygwin* | os2* | pw32* | cegcc*)
       # This hack is so that the source file can tell whether it is being
       # built for inclusion in a dll (and should export symbols for example).
       # Although the cygwin gcc ignores -fPIC, still need this for old-style
@@ -4318,7 +4315,7 @@ m4_if([$1], [CXX], [
 	  ;;
 	esac
 	;;
-      mingw* | cygwin* | msys* | os2* | pw32* | cegcc*)
+      mingw* | cygwin* | os2* | pw32* | cegcc*)
 	# This hack is so that the source file can tell whether it is being
 	# built for inclusion in a dll (and should export symbols for example).
 	m4_if([$1], [GCJ], [],
@@ -4566,7 +4563,7 @@ m4_if([$1], [CXX], [
       # PIC is the default for these OSes.
       ;;
 
-    mingw* | cygwin* | msys* | pw32* | os2* | cegcc*)
+    mingw* | cygwin* | pw32* | os2* | cegcc*)
       # This hack is so that the source file can tell whether it is being
       # built for inclusion in a dll (and should export symbols for example).
       # Although the cygwin gcc ignores -fPIC, still need this for old-style
@@ -4670,7 +4667,7 @@ m4_if([$1], [CXX], [
       esac
       ;;
 
-    mingw* | cygwin* | msys* | pw32* | os2* | cegcc*)
+    mingw* | cygwin* | pw32* | os2* | cegcc*)
       # This hack is so that the source file can tell whether it is being
       # built for inclusion in a dll (and should export symbols for example).
       m4_if([$1], [GCJ], [],
@@ -4945,7 +4942,7 @@ m4_if([$1], [CXX], [
   pw32*)
     _LT_TAGVAR(export_symbols_cmds, $1)=$ltdll_cmds
     ;;
-  cygwin* | msys* | mingw* | cegcc*)
+  cygwin* | mingw* | cegcc*)
     case $cc_basename in
     cl*)
       _LT_TAGVAR(exclude_expsyms, $1)='_NULL_IMPORT_DESCRIPTOR|_IMPORT_DESCRIPTOR_.*'
@@ -5003,7 +5000,7 @@ dnl Note also adjust exclude_expsyms for C++ above.
   extract_expsyms_cmds=
 
   case $host_os in
-  cygwin* | msys* | mingw* | pw32* | cegcc*)
+  cygwin* | mingw* | pw32* | cegcc*)
     # FIXME: the MSVC++ port hasn't been tested in a loooong time
     # When not using gcc, we currently assume that we are using
     # Microsoft Visual C++.
@@ -5118,7 +5115,7 @@ _LT_EOF
       fi
       ;;
 
-    cygwin* | msys* | mingw* | pw32* | cegcc*)
+    cygwin* | mingw* | pw32* | cegcc*)
       # _LT_TAGVAR(hardcode_libdir_flag_spec, $1) is actually meaningless,
       # as there is no search path for DLLs.
       _LT_TAGVAR(hardcode_libdir_flag_spec, $1)='-L$libdir'
@@ -5128,7 +5125,6 @@ _LT_EOF
       _LT_TAGVAR(enable_shared_with_static_runtimes, $1)=yes
       _LT_TAGVAR(export_symbols_cmds, $1)='$NM $libobjs $convenience | $global_symbol_pipe | $SED -e '\''/^[[BCDGRS]][[ ]]/s/.*[[ ]]\([[^ ]]*\)/\1 DATA/;s/^.*[[ ]]__nm__\([[^ ]]*\)[[ ]][[^ ]]*/\1 DATA/;/^I[[ ]]/d;/^[[AITW]][[ ]]/s/.* //'\'' | sort | uniq > $export_symbols'
       _LT_TAGVAR(exclude_expsyms, $1)=['[_]+GLOBAL_OFFSET_TABLE_|[_]+GLOBAL__[FID]_.*|[_]+head_[A-Za-z0-9_]+_dll|[A-Za-z0-9_]+_dll_iname']
-      _LT_TAGVAR(file_list_spec, $1)='@'
 
       if $LD --help 2>&1 | $GREP 'auto-import' > /dev/null; then
         _LT_TAGVAR(archive_cmds, $1)='$CC -shared $libobjs $deplibs $compiler_flags -o $output_objdir/$soname $wl--enable-auto-image-base -Xlinker --out-implib -Xlinker $lib'
@@ -5575,7 +5571,7 @@ _LT_EOF
       _LT_TAGVAR(export_dynamic_flag_spec, $1)=-rdynamic
       ;;
 
-    cygwin* | msys* | mingw* | pw32* | cegcc*)
+    cygwin* | mingw* | pw32* | cegcc*)
       # When not using gcc, we currently assume that we are using
       # Microsoft Visual C++.
       # hardcode_libdir_flag_spec is actually meaningless, as there is
@@ -6646,7 +6642,7 @@ if test yes != "$_lt_caught_CXX_error"; then
         esac
         ;;
 
-      cygwin* | msys* | mingw* | pw32* | cegcc*)
+      cygwin* | mingw* | pw32* | cegcc*)
 	case $GXX,$cc_basename in
 	,cl* | no,cl*)
 	  # Native MSVC
@@ -6699,7 +6695,6 @@ if test yes != "$_lt_caught_CXX_error"; then
 	  _LT_TAGVAR(allow_undefined_flag, $1)=unsupported
 	  _LT_TAGVAR(always_export_symbols, $1)=no
 	  _LT_TAGVAR(enable_shared_with_static_runtimes, $1)=yes
-	  _LT_TAGVAR(file_list_spec, $1)='@'
 
 	  if $LD --help 2>&1 | $GREP 'auto-import' > /dev/null; then
 	    _LT_TAGVAR(archive_cmds, $1)='$CC -shared -nostdlib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags -o $output_objdir/$soname $wl--enable-auto-image-base -Xlinker --out-implib -Xlinker $lib'
@@ -7549,7 +7544,7 @@ if AC_TRY_EVAL(ac_compile); then
   for p in `eval "$output_verbose_link_cmd"`; do
     case $prev$p in
 
-    -L* | -R* | -l* | */libclang_rt.*.a)
+    -L* | -R* | -l*)
        # Some compilers place space between "-{L,R}" and the path.
        # Remove the space.
        if test x-L = "$p" ||
@@ -8325,7 +8320,7 @@ AC_CACHE_VAL(lt_cv_to_host_file_cmd,
       *-*-mingw* ) # actually msys
         lt_cv_to_host_file_cmd=func_convert_file_msys_to_w32
         ;;
-      *-*-cygwin* | *-*-msys* )
+      *-*-cygwin* )
         lt_cv_to_host_file_cmd=func_convert_file_cygwin_to_w32
         ;;
       * ) # otherwise, assume *nix
@@ -8333,12 +8328,12 @@ AC_CACHE_VAL(lt_cv_to_host_file_cmd,
         ;;
     esac
     ;;
-  *-*-cygwin* | *-*-msys* )
+  *-*-cygwin* )
     case $build in
       *-*-mingw* ) # actually msys
         lt_cv_to_host_file_cmd=func_convert_file_msys_to_cygwin
         ;;
-      *-*-cygwin* | *-*-msys* )
+      *-*-cygwin* )
         lt_cv_to_host_file_cmd=func_convert_file_noop
         ;;
       * ) # otherwise, assume *nix
@@ -8503,7 +8498,7 @@ LT_OPTION_DEFINE([LT_INIT], [win32-dll],
 [enable_win32_dll=yes
 
 case $host in
-*-*-cygwin* | *-*-msys* | *-*-mingw* | *-*-pw32* | *-*-cegcc*)
+*-*-cygwin* | *-*-mingw* | *-*-pw32* | *-*-cegcc*)
   AC_CHECK_TOOL(AS, as, false)
   AC_CHECK_TOOL(DLLTOOL, dlltool, false)
   AC_CHECK_TOOL(OBJDUMP, objdump, false)
@@ -9058,7 +9053,7 @@ m4_ifndef([_LT_PROG_FC],		[AC_DEFUN([_LT_PROG_FC])])
 m4_ifndef([_LT_PROG_CXX],		[AC_DEFUN([_LT_PROG_CXX])])
 
 # pkg.m4 - Macros to locate and utilise pkg-config.   -*- Autoconf -*-
-# serial 12 (pkg-config-0.29.2)
+# serial 11 (pkg-config-0.29.1)
 
 dnl Copyright © 2004 Scott James Remnant <scott@netsplit.com>.
 dnl Copyright © 2012-2015 Dan Nicholson <dbn.lists@gmail.com>
@@ -9100,7 +9095,7 @@ dnl
 dnl See the "Since" comment for each macro you use to see what version
 dnl of the macros you require.
 m4_defun([PKG_PREREQ],
-[m4_define([PKG_MACROS_VERSION], [0.29.2])
+[m4_define([PKG_MACROS_VERSION], [0.29.1])
 m4_if(m4_version_compare(PKG_MACROS_VERSION, [$1]), -1,
     [m4_fatal([pkg.m4 version $1 or higher is required but ]PKG_MACROS_VERSION[ found])])
 ])dnl PKG_PREREQ
@@ -9201,7 +9196,7 @@ AC_ARG_VAR([$1][_CFLAGS], [C compiler flags for $1, overriding pkg-config])dnl
 AC_ARG_VAR([$1][_LIBS], [linker flags for $1, overriding pkg-config])dnl
 
 pkg_failed=no
-AC_MSG_CHECKING([for $2])
+AC_MSG_CHECKING([for $1])
 
 _PKG_CONFIG([$1][_CFLAGS], [cflags], [$2])
 _PKG_CONFIG([$1][_LIBS], [libs], [$2])
@@ -9211,11 +9206,11 @@ and $1[]_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.])
 
 if test $pkg_failed = yes; then
-        AC_MSG_RESULT([no])
+   	AC_MSG_RESULT([no])
         _PKG_SHORT_ERRORS_SUPPORTED
         if test $_pkg_short_errors_supported = yes; then
 	        $1[]_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "$2" 2>&1`
-        else
+        else 
 	        $1[]_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "$2" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
@@ -9232,7 +9227,7 @@ installed software in a non-standard prefix.
 _PKG_TEXT])[]dnl
         ])
 elif test $pkg_failed = untried; then
-        AC_MSG_RESULT([no])
+     	AC_MSG_RESULT([no])
 	m4_default([$4], [AC_MSG_FAILURE(
 [The pkg-config script could not be found or is too old.  Make sure it
 is in your PATH or set the PKG_CONFIG environment variable to the full
@@ -9332,6 +9327,74 @@ AS_VAR_COPY([$1], [pkg_cv_][$1])
 
 AS_VAR_IF([$1], [""], [$5], [$4])dnl
 ])dnl PKG_CHECK_VAR
+
+dnl PKG_WITH_MODULES(VARIABLE-PREFIX, MODULES,
+dnl   [ACTION-IF-FOUND],[ACTION-IF-NOT-FOUND],
+dnl   [DESCRIPTION], [DEFAULT])
+dnl ------------------------------------------
+dnl
+dnl Prepare a "--with-" configure option using the lowercase
+dnl [VARIABLE-PREFIX] name, merging the behaviour of AC_ARG_WITH and
+dnl PKG_CHECK_MODULES in a single macro.
+AC_DEFUN([PKG_WITH_MODULES],
+[
+m4_pushdef([with_arg], m4_tolower([$1]))
+
+m4_pushdef([description],
+           [m4_default([$5], [build with ]with_arg[ support])])
+
+m4_pushdef([def_arg], [m4_default([$6], [auto])])
+m4_pushdef([def_action_if_found], [AS_TR_SH([with_]with_arg)=yes])
+m4_pushdef([def_action_if_not_found], [AS_TR_SH([with_]with_arg)=no])
+
+m4_case(def_arg,
+            [yes],[m4_pushdef([with_without], [--without-]with_arg)],
+            [m4_pushdef([with_without],[--with-]with_arg)])
+
+AC_ARG_WITH(with_arg,
+     AS_HELP_STRING(with_without, description[ @<:@default=]def_arg[@:>@]),,
+    [AS_TR_SH([with_]with_arg)=def_arg])
+
+AS_CASE([$AS_TR_SH([with_]with_arg)],
+            [yes],[PKG_CHECK_MODULES([$1],[$2],$3,$4)],
+            [auto],[PKG_CHECK_MODULES([$1],[$2],
+                                        [m4_n([def_action_if_found]) $3],
+                                        [m4_n([def_action_if_not_found]) $4])])
+
+m4_popdef([with_arg])
+m4_popdef([description])
+m4_popdef([def_arg])
+
+])dnl PKG_WITH_MODULES
+
+dnl PKG_HAVE_WITH_MODULES(VARIABLE-PREFIX, MODULES,
+dnl   [DESCRIPTION], [DEFAULT])
+dnl -----------------------------------------------
+dnl
+dnl Convenience macro to trigger AM_CONDITIONAL after PKG_WITH_MODULES
+dnl check._[VARIABLE-PREFIX] is exported as make variable.
+AC_DEFUN([PKG_HAVE_WITH_MODULES],
+[
+PKG_WITH_MODULES([$1],[$2],,,[$3],[$4])
+
+AM_CONDITIONAL([HAVE_][$1],
+               [test "$AS_TR_SH([with_]m4_tolower([$1]))" = "yes"])
+])dnl PKG_HAVE_WITH_MODULES
+
+dnl PKG_HAVE_DEFINE_WITH_MODULES(VARIABLE-PREFIX, MODULES,
+dnl   [DESCRIPTION], [DEFAULT])
+dnl ------------------------------------------------------
+dnl
+dnl Convenience macro to run AM_CONDITIONAL and AC_DEFINE after
+dnl PKG_WITH_MODULES check. HAVE_[VARIABLE-PREFIX] is exported as make
+dnl and preprocessor variable.
+AC_DEFUN([PKG_HAVE_DEFINE_WITH_MODULES],
+[
+PKG_HAVE_WITH_MODULES([$1],[$2],[$3],[$4])
+
+AS_IF([test "$AS_TR_SH([with_]m4_tolower([$1]))" = "yes"],
+        [AC_DEFINE([HAVE_][$1], 1, [Enable ]m4_tolower([$1])[ support])])
+])dnl PKG_HAVE_DEFINE_WITH_MODULES
 
 # Copyright (C) 2002-2018 Free Software Foundation, Inc.
 #
