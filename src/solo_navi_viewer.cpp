@@ -7,7 +7,7 @@
 #include "solo_basic.h"
 #include "NavigationView.h"
 #include <libintl.h>
-
+#include "MainWindow.h"
 
 int main(int argn, char** argv)
 {
@@ -16,7 +16,7 @@ int main(int argn, char** argv)
 
 	QApplication app(argn,argv);
 
-	QMainWindow mainWindow;
+	MainWindow mainWindow;
 
 	mainWindow.setWindowTitle(_("A Simple Photogrammetric Aerial Navigation Viewer"));
 	mainWindow.resize(800,600);
@@ -33,7 +33,7 @@ int main(int argn, char** argv)
 	NavigationView* myView = new NavigationView();
 	mainLayout->addWidget(myView);
 
-	mainWindow.show();
+	mainWindow.showMaximized();
 
 	return app.exec();
 

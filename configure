@@ -3003,6 +3003,9 @@ END
 fi
 
 
+
+
+
 DEPDIR="${am__leading_dot}deps"
 
 ac_config_commands="$ac_config_commands depfiles"
@@ -13229,6 +13232,7 @@ CC=$lt_save_CC
 # Only expand once:
 
 
+
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
 ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -16933,14 +16937,25 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 case "$host" in
 	*-mingw32*)
 	INTL_EXTRA_LIBS=-lintl
-	break
 	;;
-	*-apple*)
-	INTL_EXTRA_LIBS=-lintl -L/opt/local/lib/
-	break
+	*-darwin*)
+	INTL_EXTRA_LIBS="-lintl -L/opt/local/lib/"
+	;;
+	*-linux*)
+	#INTL_EXTRA_LIBS="-lintl -L/opt/local/lib/"
+	echo -e "==>> No need link libintl on linux platform"
+	;;
+	*)
+	INTL_EXTRA_LIBS=
 	;;
 esac
 INTL_EXTRA_LIBS=$INTL_EXTRA_LIBS
+
+
+
+cat >>confdefs.h <<_ACEOF
+#define THE_BUILD_HOST "$host"
+_ACEOF
 
 
 
