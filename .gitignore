@@ -10,6 +10,8 @@ tags
 TAGS
 #.*#
 *.tar
+*.dmg
+*.deb
 *.tar.gz
 *.bz2
 Makefile
@@ -26,6 +28,7 @@ config.status
 src/so_hello
 src/so_hello_gui
 moc-*.cc
+/build*/
 /.vscode/
 src/tmp.pot
 src/solo-hello

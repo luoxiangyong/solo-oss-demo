@@ -2,28 +2,35 @@ AC_INIT([solo-oss-demo], [1.0], [solo_lxy@126.com])
 AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
+LT_PREREQ([2.4.6])
+
+
 AM_PROG_AR
 AC_PROG_CC
 #AC_PROG_RANLIB
 AC_LIBTOOL_WIN32_DLL
+LT_INIT
 AC_PROG_LIBTOOL
 AC_PROG_CXX
 
-case $host in 
+case "$host" in 
 	*-mingw32*)
 	INTL_EXTRA_LIBS=-lintl
-	break
 	;;
 	*-darwin*)
-	INTL_EXTRA_LIBS=-lintl -L/opt/local/lib/
-	break
+	INTL_EXTRA_LIBS="-lintl -L/opt/local/lib/"
+	;;
+	*-linux*)
+	#INTL_EXTRA_LIBS="-lintl -L/opt/local/lib/"
+	echo -e "==>> No need link libintl on linux platform"
 	;;
 	*)
 	INTL_EXTRA_LIBS=
-	break
 	;;
 esac
-AC_SUBST([INTL_EXTRA_LIBS])
+AC_SUBST(INTL_EXTRA_LIBS,[$INTL_EXTRA_LIBS])
+
+AC_DEFINE_UNQUOTED([THE_BUILD_HOST],["$host"],[构建用的平台])
 
 PKG_CHECK_MODULES(QT5, [Qt5Core Qt5Gui], [
 	AC_PATH_PROGS(MOC, [moc-qt5 moc], moc,`eval $PKG_CONFIG --variable=exec_prefix Qt5Core`/bin)
