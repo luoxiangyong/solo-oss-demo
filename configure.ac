@@ -9,21 +9,17 @@ AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 AC_PROG_CXX
 
-case $host in 
+case "$host" in 
 	*-mingw32*)
 	INTL_EXTRA_LIBS=-lintl
 	break
 	;;
-	*-darwin*)
+	*-apple*)
 	INTL_EXTRA_LIBS=-lintl -L/opt/local/lib/
 	break
 	;;
-	*)
-	INTL_EXTRA_LIBS=
-	break
-	;;
 esac
-AC_SUBST([INTL_EXTRA_LIBS])
+AC_SUBST(INTL_EXTRA_LIBS, [$INTL_EXTRA_LIBS])
 
 PKG_CHECK_MODULES(QT5, [Qt5Core Qt5Gui], [
 	AC_PATH_PROGS(MOC, [moc-qt5 moc], moc,`eval $PKG_CONFIG --variable=exec_prefix Qt5Core`/bin)

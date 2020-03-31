@@ -16930,20 +16930,17 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-case $host in
+case "$host" in
 	*-mingw32*)
 	INTL_EXTRA_LIBS=-lintl
 	break
 	;;
-	*-darwin*)
+	*-apple*)
 	INTL_EXTRA_LIBS=-lintl -L/opt/local/lib/
 	break
 	;;
-	*)
-	INTL_EXTRA_LIBS=
-	break
-	;;
 esac
+INTL_EXTRA_LIBS=$INTL_EXTRA_LIBS
 
 
 
