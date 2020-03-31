@@ -164,3 +164,5 @@ sudo pacman -S qt5-base pkgconfig autoconf automake libtool gdb pkgconfig
    强制生成相关文件即可
 
 2. 本程序使用的intl在linux发布版上不需要直接链接，但在Mingw、Mac OS X上需要与libintl库链接
+
+3. Bash脚本中cp指令的路径写法和字符串表示要注意了，不要搞混淆
