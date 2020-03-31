@@ -10,6 +10,8 @@ tags
 TAGS
 #.*#
 *.tar
+*.dmg
+*.deb
 *.tar.gz
 *.bz2
 Makefile

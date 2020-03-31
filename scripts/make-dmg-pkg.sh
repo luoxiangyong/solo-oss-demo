@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+# Author: 罗祥勇 solo_lxy@126.com
+# Create At: Tue, 31 Mar 2020 12:50:13 +0800
+# History: Tue, 31 Mar 2020 12:50:13 +0800 初始版本
+#
+
+# 开始前请在源代码根目录执行：
+# make distclean
+
+top_srcdir=..
+build_dmg_dir=`pwd`/./build-dmg
+contents_dir=$build_dmg_dir/contents
+make_build_dir=$build_dmg_dir/build
+
+# 创建相关目录
+mkdir -p $contents_dir
+mkdir -p $build_dmg_dir
+mkdir -p $make_build_dir
+
+cd $make_build_dir
+#build_install_dir=`pwd`/../contents
+echo "开始构建，并安装于:$contents_dir"
+(../../../configure --prefix=$contents_dir && make && make install) || exit 0
+cd ../..
+
+# 创建dmg
+FILESIZE=$(du -sm "${contents_dir}" | cut -f1)
+FILESIZE=$((${FILESIZE} + 5))
+echo "包大小:${FILESIZE}M"
+
+echo "创建DMG..."
+package_name="solo-oss-demo"
+package_version="1.0"
+dmg_name="${package_name}-${package_version}"
+dmg_app_name="${dmg_name}.app"
+dmg_path="$build_dmg_dir/../$dmg_name"
+rm -f "${dmg_path}.dmg"
+volume_dir="/Volumes/${dmg_name}"
+hdiutil eject $volume_dir
+hdiutil create -megabytes $FILESIZE -fs HFS+ -volname $dmg_name $dmg_path
+
+echo "挂载DMG..."
+hdiutil mount "${dmg_path}.dmg"
+
+echo "当前目录:`pwd`"
+echo "从拷贝数据到DMG..."
+mkdir -p "${volume_dir}/$dmg_app_name/Contents/Frameworks"
+mkdir -p "${volume_dir}/$dmg_app_name/Contents/Resources"
+mkdir -p "${volume_dir}/$dmg_app_name/Contents/MacOS"
+#mkdir -p "${volume_dir}/Contents/\{Frameworks,Resources,MacOS\}"
+# 这里的路径及参数一定要仔细，不然老是出错！！！
+cp ../pkgs/mac/Info.plist "$volume_dir/$dmg_app_name/Contents/"
+cp ../pkgs/mac/PkgInfo "$volume_dir/$dmg_app_name/Contents/"
+echo "拷贝数据: $contents_dir/bin/* -> $volume_dir/$dmg_app_name/Contents/MacOS/"
+(cp  "$contents_dir/bin"/* "$volume_dir/$dmg_app_name/Contents/MacOS/")
+echo "拷贝数据: $contents_dir/lib/* -> $volume_dir/$dmg_app_name/$dmg_name/Contents/Frameworks"
+(cp  "$contents_dir/lib/"* "$volume_dir/$dmg_app_name/Contents/Frameworks")
+
+echo "卸载DMG..."
+hdiutil eject $volume_dir
+
+rm -rf $build_dmg_dir
+
+echo "恭喜！顺利完成dmg：${dmg_path}.dmg 文件的制作"

@@ -1,5 +1,5 @@
 AUTOMAKE_OPTIONS=foreign 
-AM_CPPFLAGS = -I../include -I/opt/local/include
+AM_CPPFLAGS = -I${top_srcdir}/include -I/opt/local/include
 #AM_LDFLAGS  = -L/opt/local/lib -lintl
 
 bin_PROGRAMS = solo-hello solo-navi-viewer
