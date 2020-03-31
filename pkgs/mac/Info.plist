@@ -5,19 +5,19 @@
 	<key>BuildMachineOSBuild</key>
 	<string>18G103</string>
 	<key>CFBundleDisplayName</key>
-	<string>Code</string>
+	<string>SOLO OSS Demo</string>
 	<key>CFBundleExecutable</key>
 	<string>solo-navi-viewer</string>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>solo-oss-demo.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>cn.luoxiangyong.solo-oss-demo</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Code</string>
+	<string>solo-oss-demo</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
