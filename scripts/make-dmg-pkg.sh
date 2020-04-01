@@ -1,12 +1,16 @@
 #!/bin/bash
 #
 # Author: 罗祥勇 solo_lxy@126.com
+# Description: 制作DMG安装包，让程序直接可以被拖进/Applications目录运行
 # Create At: Tue, 31 Mar 2020 12:50:13 +0800
 # History: Tue, 31 Mar 2020 12:50:13 +0800 初始版本
 #
 
 # 开始前请在源代码根目录执行：
 # make distclean
+
+package_name="solo-oss-demo"
+package_version="1.0"
 
 top_srcdir=`pwd`/..
 build_dmg_dir=`pwd`/./build-dmg
@@ -30,8 +34,6 @@ FILESIZE=$((${FILESIZE} + 5))
 echo "包大小:${FILESIZE}M"
 
 echo "创建DMG..."
-package_name="solo-oss-demo"
-package_version="1.0"
 dmg_name="${package_name}-${package_version}"
 dmg_app_name="${dmg_name}.app"
 dmg_path="$build_dmg_dir/../$dmg_name"
