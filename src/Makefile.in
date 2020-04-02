@@ -153,7 +153,9 @@ am_solo_navi_viewer_OBJECTS =  \
 	solo_navi_viewer-NavigationView.$(OBJEXT) \
 	solo_navi_viewer-moc-NavigationView.$(OBJEXT) \
 	solo_navi_viewer-MainWindow.$(OBJEXT) \
-	solo_navi_viewer-moc-MainWindow.$(OBJEXT)
+	solo_navi_viewer-moc-MainWindow.$(OBJEXT) \
+	solo_navi_viewer-WebView.$(OBJEXT) \
+	solo_navi_viewer-moc-WebView.$(OBJEXT)
 solo_navi_viewer_OBJECTS = $(am_solo_navi_viewer_OBJECTS)
 solo_navi_viewer_LDADD = $(LDADD)
 solo_navi_viewer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
@@ -179,8 +181,10 @@ am__depfiles_remade = ./$(DEPDIR)/libsolo_basic_la-solo_basic.Plo \
 	./$(DEPDIR)/solo_hello.Po \
 	./$(DEPDIR)/solo_navi_viewer-MainWindow.Po \
 	./$(DEPDIR)/solo_navi_viewer-NavigationView.Po \
+	./$(DEPDIR)/solo_navi_viewer-WebView.Po \
 	./$(DEPDIR)/solo_navi_viewer-moc-MainWindow.Po \
 	./$(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po \
+	./$(DEPDIR)/solo_navi_viewer-moc-WebView.Po \
 	./$(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -398,10 +402,13 @@ solo_navi_viewer_SOURCES = \
 			moc-NavigationView.cc\
 			MainWindow.h\
 			MainWindow.cpp\
-			moc-MainWindow.cc
+			moc-MainWindow.cc\
+			WebView.h\
+			WebView.cpp\
+			moc-WebView.cc
 
 solo_navi_viewer_CXXFLAGS = @MY_QT5_CPPFLAGS@ -fPIC -std=c++11
-solo_navi_viewer_LDFLAGS = @MY_QT5_LIBS@  @INTL_EXTRA_LIBS@  solo-oss-demo.res
+solo_navi_viewer_LDFLAGS = @QT5_LIBS@  @INTL_EXTRA_LIBS@  #solo-oss-demo.res
 lib_LTLIBRARIES = libsolo-basic.la
 libsolo_basic_la_SOURCES = solo_basic.c ../include/solo_basic.h
 libsolo_basic_la_LDFLAGS = -no-undefined -version-info 0:0:0
@@ -545,8 +552,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_hello.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-MainWindow.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-NavigationView.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-WebView.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-moc-MainWindow.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-moc-WebView.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -673,6 +682,34 @@ solo_navi_viewer-moc-MainWindow.obj: moc-MainWindow.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='moc-MainWindow.cc' object='solo_navi_viewer-moc-MainWindow.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-moc-MainWindow.obj `if test -f 'moc-MainWindow.cc'; then $(CYGPATH_W) 'moc-MainWindow.cc'; else $(CYGPATH_W) '$(srcdir)/moc-MainWindow.cc'; fi`
+
+solo_navi_viewer-WebView.o: WebView.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-WebView.o -MD -MP -MF $(DEPDIR)/solo_navi_viewer-WebView.Tpo -c -o solo_navi_viewer-WebView.o `test -f 'WebView.cpp' || echo '$(srcdir)/'`WebView.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-WebView.Tpo $(DEPDIR)/solo_navi_viewer-WebView.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='WebView.cpp' object='solo_navi_viewer-WebView.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-WebView.o `test -f 'WebView.cpp' || echo '$(srcdir)/'`WebView.cpp
+
+solo_navi_viewer-WebView.obj: WebView.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-WebView.obj -MD -MP -MF $(DEPDIR)/solo_navi_viewer-WebView.Tpo -c -o solo_navi_viewer-WebView.obj `if test -f 'WebView.cpp'; then $(CYGPATH_W) 'WebView.cpp'; else $(CYGPATH_W) '$(srcdir)/WebView.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-WebView.Tpo $(DEPDIR)/solo_navi_viewer-WebView.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='WebView.cpp' object='solo_navi_viewer-WebView.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-WebView.obj `if test -f 'WebView.cpp'; then $(CYGPATH_W) 'WebView.cpp'; else $(CYGPATH_W) '$(srcdir)/WebView.cpp'; fi`
+
+solo_navi_viewer-moc-WebView.o: moc-WebView.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-moc-WebView.o -MD -MP -MF $(DEPDIR)/solo_navi_viewer-moc-WebView.Tpo -c -o solo_navi_viewer-moc-WebView.o `test -f 'moc-WebView.cc' || echo '$(srcdir)/'`moc-WebView.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-moc-WebView.Tpo $(DEPDIR)/solo_navi_viewer-moc-WebView.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='moc-WebView.cc' object='solo_navi_viewer-moc-WebView.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-moc-WebView.o `test -f 'moc-WebView.cc' || echo '$(srcdir)/'`moc-WebView.cc
+
+solo_navi_viewer-moc-WebView.obj: moc-WebView.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -MT solo_navi_viewer-moc-WebView.obj -MD -MP -MF $(DEPDIR)/solo_navi_viewer-moc-WebView.Tpo -c -o solo_navi_viewer-moc-WebView.obj `if test -f 'moc-WebView.cc'; then $(CYGPATH_W) 'moc-WebView.cc'; else $(CYGPATH_W) '$(srcdir)/moc-WebView.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/solo_navi_viewer-moc-WebView.Tpo $(DEPDIR)/solo_navi_viewer-moc-WebView.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='moc-WebView.cc' object='solo_navi_viewer-moc-WebView.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(solo_navi_viewer_CXXFLAGS) $(CXXFLAGS) -c -o solo_navi_viewer-moc-WebView.obj `if test -f 'moc-WebView.cc'; then $(CYGPATH_W) 'moc-WebView.cc'; else $(CYGPATH_W) '$(srcdir)/moc-WebView.cc'; fi`
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -835,8 +872,10 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/solo_hello.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-MainWindow.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-NavigationView.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-WebView.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-moc-MainWindow.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-moc-WebView.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -887,8 +926,10 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/solo_hello.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-MainWindow.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-NavigationView.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-WebView.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-moc-MainWindow.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-moc-NavigationView.Po
+	-rm -f ./$(DEPDIR)/solo_navi_viewer-moc-WebView.Po
 	-rm -f ./$(DEPDIR)/solo_navi_viewer-solo_navi_viewer.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic

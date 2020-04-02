@@ -15,11 +15,14 @@ solo_navi_viewer_SOURCES 	= \
 			moc-NavigationView.cc\
 			MainWindow.h\
 			MainWindow.cpp\
-			moc-MainWindow.cc
+			moc-MainWindow.cc\
+			WebView.h\
+			WebView.cpp\
+			moc-WebView.cc
 			
 
 solo_navi_viewer_CXXFLAGS 	= @MY_QT5_CPPFLAGS@ -fPIC -std=c++11
-solo_navi_viewer_LDFLAGS 	= @MY_QT5_LIBS@  @INTL_EXTRA_LIBS@  solo-oss-demo.res
+solo_navi_viewer_LDFLAGS 	= @QT5_LIBS@  @INTL_EXTRA_LIBS@  #solo-oss-demo.res
 
 lib_LTLIBRARIES 			= libsolo-basic.la
 libsolo_basic_la_SOURCES 	= solo_basic.c ../include/solo_basic.h

@@ -4,6 +4,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QToolBar>
+
 #include "config.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
@@ -25,8 +26,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 	
 	QMenu* mfile = menuBar()->addMenu("&File");
 	mfile->addAction(openAction);
-	QToolBar* tfile = addToolBar("&File");
-	tfile->addAction(openAction);
+	//QToolBar* tfile = addToolBar("&File");
+	//tfile->addAction(openAction);
  
 	/*2、状态栏的临时信息、一般信息、永久信息的显示*/
  

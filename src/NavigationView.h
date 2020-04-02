@@ -5,6 +5,7 @@
 #include <QtGui/QPaintDevice>
 #include <QtGui/QPaintEvent>
 #include <QtGui/QPainter>
+#include <QtGui/QKeyEvent>
 
 class  NavigationView : public QWidget
 {
@@ -14,6 +15,10 @@ public:
 	~NavigationView();
 
 	void paintEvent(QPaintEvent* event);
+
+	void keyPressEvent(QKeyEvent *event);
+	
+	int currentOrientation;
 };
 
 #endif // NavigationView_H

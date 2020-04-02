@@ -1,13 +1,18 @@
 #include "NavigationView.h"
 #include <QtGui/QPalette>
+#include <QtGui/QBrush>
 
 NavigationView::NavigationView(QWidget* parent ) : QWidget(parent) 
 {
 	this->setAutoFillBackground(true);
 	QPalette palette(this->palette());
-	palette.setColor(QPalette::Background, Qt::black);
+	//palette.setColor(QPalette::Background, QColor(108,106,90));
+	palette.setColor(QPalette::Background, QColor(0,0,0));
 	this->setPalette(palette);
 
+	currentOrientation = 190;
+
+	setFocusPolicy(Qt::StrongFocus);
 }
 
 NavigationView::~NavigationView() 
@@ -39,7 +44,83 @@ void NavigationView::paintEvent(QPaintEvent* event)
 	}
 	
 
+	// header
+	painter.setPen(Qt::NoPen);
+	QBrush headerBrush(QColor(0,0,50,255));
+	painter.setBrush(headerBrush);
+	painter.drawRect(0,0, this->width(),50);
+	painter.drawEllipse(50,-16,80,80);
+
+	// 临时状态
+	int topMargin = 80;
+	int leftMargin = this->width() - 350;
+	QBrush msg1Brush(QColor(0,0,255,200));
+	painter.setBrush(msg1Brush);
+	painter.drawRect(leftMargin,topMargin,50,50);
+	QBrush msg2Brush(QColor(255,255,255,200));
+	painter.setBrush(msg2Brush);
+	painter.drawRect(leftMargin + 55 ,topMargin,200,50);
+
+	// 方向
+	QBrush orientationBrush(QColor(50,50,50,200));
+	painter.setBrush(orientationBrush);
+	painter.drawEllipse(width() - 60 - 5, topMargin - 5, 60, 60);
+	painter.setBrush(Qt::NoBrush);
+	painter.setPen(QColor(21,38,56,255));
+	painter.drawEllipse(width() - 60 , topMargin , 50, 50);
+	
+	////////////////////////////////////////////////////////////////////////////
+	// 实时状态
+	painter.setPen(Qt::NoPen);
+	QBrush bottomBrush(QColor(21,38,56,255));
+	painter.setBrush(bottomBrush);
+	painter.drawRect(0, height() - 300 ,500, 300);
+
+	int baseX = 170, baseY = height() - 100;
+
+	painter.setBrush(QBrush(QColor(110,110,110)));
+
+	// 圆
+	int extCircleRaduis = 90, intCircleRaduis = 70;
+	painter.drawEllipse(baseX - extCircleRaduis , baseY - extCircleRaduis , extCircleRaduis *2 , extCircleRaduis *2);
+	painter.setBrush(QBrush(QColor(0,0,255)));
+	painter.drawEllipse(baseX - intCircleRaduis , baseY - intCircleRaduis , intCircleRaduis *2 , intCircleRaduis *2);
+	painter.setBrush(QBrush(QColor(21,38,56,255)));
+	//int currentOrientation = 180;
+	painter.drawPie(baseX - intCircleRaduis , baseY - intCircleRaduis , intCircleRaduis *2 , intCircleRaduis *2, 
+						currentOrientation*16, 180*16);
+
+	// 左标尺
+	int rulerWidth = 30, rulerHeight = intCircleRaduis * 2;
+	int leftRulerStartX = baseX - extCircleRaduis -10 - rulerWidth;
+	int leftRulerStartY = baseY - intCircleRaduis;
+	painter.setBrush(QBrush(QColor(21,38,30,255)));
+	painter.drawRect(leftRulerStartX, leftRulerStartY, rulerWidth,rulerHeight);
+
+	// 右标尺
+	int rightRulerStartX = baseX + extCircleRaduis + 10;
+	int rightRulerStartY = baseY - intCircleRaduis;
+	painter.setBrush(QBrush(QColor(21,38,30,255)));
+	painter.drawRect(rightRulerStartX, rightRulerStartY, rulerWidth,rulerHeight);
+
+
 	painter.restore(); 
+}
+
+void NavigationView::keyPressEvent(QKeyEvent *event)
+{
+	if(event->key() == Qt::Key_Right){
+		currentOrientation -= 5;
+	}else if(event->key() == Qt::Key_Left) {
+		currentOrientation += 5;
+	}else{
+		QWidget::keyPressEvent(event);
+	}
+
+	if(currentOrientation > 180) currentOrientation = 180;
+	if(currentOrientation < 0) currentOrientation = 0;
+
+	update();
 }
 
 /*
