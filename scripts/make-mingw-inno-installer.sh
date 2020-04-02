@@ -60,6 +60,11 @@ for file in Qt5Widgets.dll Qt5Core.dll
 do
 cp -f /mingw64/bin/$file $contents_dir/bin
 done
+
+# 拷贝QT plugins
+mkdir -p $contents_dir/bin/platforms
+cp  /mingw64/share/Qt5/plugins/platforms/*.dll $contents_dir/bin/platforms
+
 ###############################################################################
 
 echo "开始制作安装包"

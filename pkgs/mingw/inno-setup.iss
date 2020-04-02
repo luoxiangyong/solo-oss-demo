@@ -35,6 +35,7 @@ AppUpdatesURL={#MyAppURL}
 Source: ".\contents\bin\*.exe"; DestDir: "{app}\bin"
 Source: ".\contents\bin\*.ico"; DestDir: "{app}\bin"
 Source: ".\contents\bin\*.dll"; DestDir: "{app}\bin"
+Source: ".\contents\bin\platforms\*.dll"; DestDir: "{app}\bin\platforms"
 ;Source: ".\contents\bin\solo-hello.exe"; DestDir: "{app}\bin"
 ;Source: ".\contents\bin\*.dll"; DestDir: "{app}\bin"
 Source: ".\contents\share\pixmaps\*"; DestDir: "{app}\share\pixmaps"

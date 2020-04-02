@@ -88,6 +88,10 @@ Section "MainSection" SEC01
   File ".\contents\share\doc\solo-oss-demo\README"
   SetOutPath "$INSTDIR\share\pixmaps"
   File ".\contents\share\pixmaps\solo-oss-demo.png"
+
+  CreateDirectory "$SMPROGRAMS\solo-oss-demo\bin\platforms"
+  SetOutPath "$INSTDIR\bin\platforms"
+  File ".\contents\bin\platforms\*.dll"
 SectionEnd
 
 Section -AdditionalIcons
@@ -156,6 +160,7 @@ Section Uninstall
   ;Delete "$INSTDIR\bin\libgcc_s_seh-1.dll"
   ;Delete "$INSTDIR\bin\libfreetype-6.dll"
   ;Delete "$INSTDIR\bin\libbz2-1.dll"
+  Delete "$INSTDIR\bin\platforms\*"
 
   Delete "$SMPROGRAMS\solo-oss-demo\Uninstall.lnk"
   Delete "$SMPROGRAMS\solo-oss-demo\Website.lnk"
@@ -167,6 +172,8 @@ Section Uninstall
   RMDir "$INSTDIR\share\doc\solo-oss-demo"
   RMDir "$INSTDIR\share\applications"
   RMDir "$INSTDIR\share\doc"
+  RMDir "$INSTDIR\bin\platforms"  
+
   RMDir "$INSTDIR\share"
   RMDir "$INSTDIR\lib"
   RMDir "$INSTDIR\bin"

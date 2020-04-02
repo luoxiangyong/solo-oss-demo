@@ -9,7 +9,7 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
     /*1、菜单、工具条的状态栏提示*/
- 
+
 	//创建QAction对象
 	openAction = new QAction("&Open",this);
 	//设置快捷键
@@ -36,8 +36,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 	statusBar()->addWidget(msgLable);
 	//statusBar()->showMessage("lin shi xin xi ",3000);//3s后关闭
 
-	
- 
 	QStatusBar* bar = statusBar(); //获取状态栏
 	QLabel* first_statusLabel = new QLabel; //新建标签
 	first_statusLabel->setMinimumSize(150,20); //设置标签最小尺寸
@@ -54,7 +52,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
  
 	//显示一般信息栏
 	bar->addWidget(first_statusLabel);
-	
 	
 	//显示永久信息栏
 	bar->addPermanentWidget(second_statusLabel);
