@@ -7,6 +7,7 @@
     <title>百度地图API自定义地图</title>
     <!--引用百度地图API-->
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8KusNzD0YOvm7olO2MVdAGadi9XECmCc"></script>
+    <script type="text/javascript" src="./qwebchannel.js"></script>
   </head>
 
   <style >
@@ -33,11 +34,17 @@
       createMap();//创建地图
       setMapEvent();//设置地图事件
       addMapControl();//向地图添加控件
-      addMapOverlay();//向地图添加覆盖物
+      //addMapOverlay();//向地图添加覆盖物
     }
+
+    function changeCurrentLocation(lat, long, level) {
+      //alert("test");
+      map.centerAndZoom(new BMap.Point(lat,long),level);
+    }
+
     function createMap(){ 
       map = new BMap.Map("map"); 
-      map.centerAndZoom(new BMap.Point(104.076099,30.662113),16);
+      map.centerAndZoom(new BMap.Point(116.402,39.913),16);
     }
     function setMapEvent(){
       map.enableScrollWheelZoom();
@@ -78,8 +85,62 @@
       map.addControl(scaleControl);
       var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
       map.addControl(navControl);
+
+      // 添加定位控件
+      var geolocationControl = new BMap.GeolocationControl({anchor:BMAP_ANCHOR_TOP_RIGHT});
+      geolocationControl.addEventListener("locationSuccess", function(e){
+        // 定位成功事件
+        var address = '';
+        address += e.addressComponent.province;
+        address += e.addressComponent.city;
+        address += e.addressComponent.district;
+        address += e.addressComponent.street;
+        address += e.addressComponent.streetNumber;
+        alert("当前定位地址为：" + address);
+      });
+      geolocationControl.addEventListener("locationError",function(e){
+        // 定位失败事件
+        alert(e.message);
+      });
+      map.addControl(geolocationControl);
+
+      var overviewControl = new BMap.OverviewMapControl();
+      map.addControl(overviewControl);
+
+      var mapTypeControl = new BMap.MapTypeControl();
+      map.addControl(mapTypeControl);
     }
     var map;
-      initMap();
+    initMap();
+
+    map.addEventListener("click", function(e){
+        //alert("test1");
+        if (typeof qt != 'undefined'){
+            new QWebChannel(qt.webChannelTransport, function(channel){
+              //alert("webengine");
+              windows.mainWindow = channel.objects.mainWindow;
+              windows.mainWindow.mapClicked(e.point.lng, e.point.lat);
+            });
+        }else{
+          //alert("wenview");
+          mainWindow.mapClicked(e.point.lng, e.point.lat);
+        }
+    });
+
+    map.addEventListener("mousemove", function(e){
+        if (typeof qt != 'undefined'){
+            new QWebChannel(qt.webChannelTransport, function(channel){
+              //alert("webengine");
+              windows.mainWindow = channel.objects.mainWindow;
+              windows.mainWindow.mapClicked(e.point.lng, e.point.lat);
+            });
+        }else if(typeof mainWindow != 'undefined'){
+          
+          mainWindow.mapClicked(e.point.lng, e.point.lat, e.target.getZoom());
+        }else {
+         //console.log(e.point.lng, e.point.lat,e.target.getZoom());
+        }
+    });
+
   </script>
 </html>

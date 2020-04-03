@@ -2,7 +2,12 @@
 #include <QtGui/QPalette>
 #include <QtGui/QBrush>
 
+
+#ifdef QT5_HAVE_WEBENGINE
+WebView::WebView(QWidget* parent ) : QWebEngineView(parent) 
+#else
 WebView::WebView(QWidget* parent ) : QWebView(parent) 
+#endif
 {
 	this->setAutoFillBackground(true);
 	QPalette palette(this->palette());
@@ -22,7 +27,12 @@ WebView::~WebView()
 
 void WebView::paintEvent(QPaintEvent* event) 
 {
-	QWebView::paintEvent(event);  
+#ifdef QT5_HAVE_WEBENGINE
+    QWebEngineView::paintEvent(event); 
+#else
+    QWebView::paintEvent(event); 
+#endif
+	 
 
 	QPainter painter(this);  
 	painter.setRenderHint(QPainter::Antialiasing);  
@@ -85,5 +95,9 @@ void WebView::paintEvent(QPaintEvent* event)
 
 void WebView::keyPressEvent(QKeyEvent *event)
 {
-	QWebView::keyPressEvent(event);
+#ifdef QT5_HAVE_WEBENGINE
+    QWebEngineView::keyPressEvent(event); 
+#else
+    QWebView::keyPressEvent(event);
+#endif
 }

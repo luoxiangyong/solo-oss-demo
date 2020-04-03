@@ -1,0 +1,44 @@
+QLineEdit {
+    border: 1px solid rgb(0,255,0);
+    border-radius: 3px;
+}
+
+QPushButton {
+    border: 1px solid rgb(0,255,0);
+    border-radius: 3px;
+    background:transparent;
+    height:20px;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+QPushButton:hover {
+    background:rgb(0,255,0);
+}
+
+QWidget {
+    background:white;
+    color:black;
+}
+
+QTabWidget::pane{
+    border:none;
+}
+QTabWidget::tab-bar{
+    alignment:left;
+    background:black;
+}
+QTabBar::tab{
+    background:transparent;
+    color:black;
+    min-width:30ex;
+    min-height:10ex;
+}
+QTabBar::tab:hover{
+    background:rgb(0, 255, 0, 100);
+}
+QTabBar::tab:selected{
+    border-color: blue;
+    background:green;
+    color:white;
+}

@@ -32,7 +32,7 @@ AC_SUBST(INTL_EXTRA_LIBS,[$INTL_EXTRA_LIBS])
 
 AC_DEFINE_UNQUOTED([THE_BUILD_HOST],["$host"],[构建用的平台])
 
-PKG_CHECK_MODULES(QT5, [Qt5Core Qt5Gui,Qt5Widgets,Qt5WebKitWidgets], [
+PKG_CHECK_MODULES(QT5, [Qt5Core Qt5Gui,Qt5Widgets,Qt5WebKitWidgets,Qt5WebChannel], [
 	AC_PATH_PROGS(MOC, [moc-qt5 moc], moc,`eval $PKG_CONFIG --variable=exec_prefix Qt5Core`/bin)
 	AC_PATH_PROG(RCC, [rcc-qt5 rcc], rcc,`eval $PKG_CONFIG --variable=exec_prefix Qt5Core`/bin)
 	AC_PATH_PROGS(UIC, [uic-qt5 uic], uic,`eval $PKG_CONFIG --variable=exec_prefix Qt5Core`/bin)

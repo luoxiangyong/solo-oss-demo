@@ -46,10 +46,10 @@ void NavigationView::paintEvent(QPaintEvent* event)
 
 	// header
 	painter.setPen(Qt::NoPen);
-	QBrush headerBrush(QColor(0,0,50,255));
+	QBrush headerBrush(QColor(21,38,56,255));
 	painter.setBrush(headerBrush);
 	painter.drawRect(0,0, this->width(),50);
-	painter.drawEllipse(50,-16,80,80);
+	painter.drawEllipse(50,-20,80,80);
 
 	// 临时状态
 	int topMargin = 80;
@@ -72,7 +72,7 @@ void NavigationView::paintEvent(QPaintEvent* event)
 	////////////////////////////////////////////////////////////////////////////
 	// 实时状态
 	painter.setPen(Qt::NoPen);
-	QBrush bottomBrush(QColor(21,38,56,255));
+	QBrush bottomBrush(QColor(21,38,56,200));
 	painter.setBrush(bottomBrush);
 	painter.drawRect(0, height() - 300 ,500, 300);
 

@@ -1,7 +1,7 @@
 SUBDIRS = src
 
 dist_doc_DATA = README
-EXTRA_DIST = intl/solo-oss-demo_zh_CN.po\
+EXTRA_DIST = share/intl/solo-oss-demo_zh_CN.po\
 	pkgs
 
 desktopdir = $(datadir)/applications
