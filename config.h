@@ -58,5 +58,8 @@
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
+/* 构建用的平台 */
+#define THE_BUILD_HOST "x86_64-pc-linux-gnu"
+
 /* Version number of package */
 #define VERSION "1.0"

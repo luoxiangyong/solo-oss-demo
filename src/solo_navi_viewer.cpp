@@ -1,41 +1,30 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QWidget>
-//#include <QtWidgets/QPanek
-#include <QtWidgets/QVBoxLayout>
-
 #include "solo_basic.h"
-#include "NavigationView.h"
+#include <QtCore/QDebug>
 #include <libintl.h>
-
+#include "MainWindow.h"
+#include "config.h"
 
 int main(int argn, char** argv)
 {
-	bindtextdomain("solo-oss-demo", "/usr/share/locale");
-  	textdomain("solo-oss-demo");
-
 	QApplication app(argn,argv);
+	QString moPath = QString("%1/../share/%2/locale")
+						.arg(QApplication::applicationDirPath())
+						.arg(PACKAGE_NAME);
+	//bindtextdomain("solo-oss-demo", "/usr/share/locale");
+	bindtextdomain(PACKAGE_NAME, moPath.toStdString().c_str());
+  	textdomain(PACKAGE_NAME);
 
-	QMainWindow mainWindow;
+	qDebug() << moPath;
+
+	MainWindow mainWindow;
 
 	mainWindow.setWindowTitle(_("A Simple Photogrammetric Aerial Navigation Viewer"));
 	mainWindow.resize(800,600);
 
-	//mainWindow.setContentsMargins(0,0,0,0);
-
-	QVBoxLayout* mainLayout = new QVBoxLayout();
-	mainLayout->setContentsMargins(0,0,0,0);
-	QWidget* mainPanel = new QWidget();
-	//mainPanel->setContentsMargins(0,0,0,0);
-	mainPanel->setLayout(mainLayout);
-	mainWindow.setCentralWidget(mainPanel);
+	mainWindow.showMaximized();
 	
-	NavigationView* myView = new NavigationView();
-	mainLayout->addWidget(myView);
-
-	mainWindow.show();
-
 	return app.exec();
-
 }
 

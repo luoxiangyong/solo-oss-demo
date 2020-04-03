@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=SOLO OSS demo
+GenericName=SOLO OSS demo
+Comment=A simple OSS demo
+Exec=solo-navi-viewer
+Icon=solo-oss-demo.png
+Terminal=false
+Type=Application
+Categories=Application;Programme;
+
